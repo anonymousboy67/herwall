@@ -16,8 +16,11 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "herwall | K-pop Poster Prints Nepal",
+  title: "herwall",
   description: "Curated K-pop poster prints that turn your room into a shrine.",
+  icons: {
+    icon: '/herwall_logo.svg',
+  },
 };
 
 export default function RootLayout({
