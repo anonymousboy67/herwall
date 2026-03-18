@@ -24,7 +24,12 @@ import {
   Menu,
 } from "lucide-react";
 
-const NAV_LINKS = ["Shop", "Collections", "Artists", "About"];
+const NAV_LINKS = [
+  { label: "Shop", href: "/" },
+  { label: "Collections", href: "/" },
+  { label: "Artists", href: "/" },
+  { label: "About", href: "/about" },
+];
 
 const FANDOM_CHIPS = ["All", "BLACKPINK", "BTS", "aespa", "TWICE", "IVE", "NewJeans", "ITZY"];
 
@@ -210,8 +215,8 @@ export default function Home() {
 
           <div className="hidden md:flex gap-8">
             {NAV_LINKS.map((link) => (
-              <a key={link} href="#" className="text-[13px] font-medium uppercase tracking-[0.08em] no-underline" style={{ color: "#6b3050" }}>
-                {link}
+              <a key={link.label} href={link.href} className="text-[13px] font-medium uppercase tracking-[0.08em] no-underline" style={{ color: "#6b3050" }}>
+                {link.label}
               </a>
             ))}
           </div>
@@ -272,20 +277,21 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-3xl p-2.5 grid grid-cols-3 md:grid-cols-2 md:grid-rows-2 gap-2 md:gap-2.5 md:min-h-[380px]" style={{ background: "#2a0e1c" }}>
-            <div className="relative overflow-hidden rounded-2xl h-[180px] md:h-auto md:row-span-2">
+          <div className="rounded-3xl p-2.5 grid md:grid-cols-2 md:grid-rows-2 gap-2 md:gap-2.5 md:min-h-[380px]" style={{ background: "#2a0e1c", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto" }}>
+            {/* Big left image — spans 2 rows on desktop, full row on mobile */}
+            <div className="relative overflow-hidden rounded-2xl md:row-span-2" style={{ height: 200 }}>
               <Image src="/bts/bts2.jpg" alt="Jungkook Golden" fill className="object-cover object-top" />
               <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: "linear-gradient(to top, rgba(42,14,28,0.85), transparent)", padding: "1rem 0.75rem 0.75rem" }}>
                 <p className="text-white text-[10px] md:text-[11px] font-medium uppercase tracking-[0.08em] m-0">BTS / Golden Era</p>
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-2xl h-[180px] md:h-auto">
+            <div className="relative overflow-hidden rounded-2xl" style={{ height: 200 }}>
               <Image src="/bts/bts.jpg" alt="V Taehyung" fill className="object-cover object-top" />
               <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: "linear-gradient(to top, rgba(42,14,28,0.85), transparent)", padding: "0.75rem" }}>
                 <p className="text-white text-[10px] font-medium uppercase tracking-[0.06em] m-0">BTS / Layover</p>
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-2xl h-[180px] md:h-auto">
+            <div className="relative overflow-hidden rounded-2xl hidden md:block">
               <Image src="/blackpink/backpink1.jpg" alt="Lisa Rock Chic" fill className="object-cover object-top" />
               <div className="absolute bottom-0 left-0 right-0 z-10" style={{ background: "linear-gradient(to top, rgba(42,14,28,0.85), transparent)", padding: "0.75rem" }}>
                 <p className="text-white text-[10px] font-medium uppercase tracking-[0.06em] m-0">BLACKPINK / Rock Chic</p>
@@ -357,14 +363,15 @@ export default function Home() {
                   </p>
 
                   {/* Format pills */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                  <div style={{ display: "flex", gap: 4 }}>
                     {formats.map((f, idx) => (
                       <button
                         key={f.label}
                         onClick={() => setSelectedFormats((prev) => ({ ...prev, [product.id]: idx }))}
                         style={{
+                          flex: 1,
                           fontSize: 10,
-                          padding: "3px 8px",
+                          padding: "3px 4px",
                           borderRadius: 999,
                           border: "1px solid",
                           cursor: "pointer",
@@ -373,9 +380,10 @@ export default function Home() {
                           borderColor: fmtIdx === idx ? "#C0426C" : "#f0d0dc",
                           transition: "all 0.12s ease",
                           whiteSpace: "nowrap",
+                          textAlign: "center",
                         }}
                       >
-                        {idx === 0 ? "Framed Rs.799" : idx === 1 ? "Unframed Rs.349" : "Bundle Rs.1,399"}
+                        {idx === 0 ? "Framed" : idx === 1 ? "Unframed" : "Bundle"}
                       </button>
                     ))}
                   </div>
